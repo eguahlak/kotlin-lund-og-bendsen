@@ -7,6 +7,7 @@ fun Show.pragmaticSection() = section("Pragmatism") {
 
   slide("The pragmatic approach") {
     list {
+      text("Interoperable")
       text("More readable code")
       list {
         text("One-line properties")
@@ -26,6 +27,43 @@ fun Show.pragmaticSection() = section("Pragmatism") {
       """)
     }
 
+  section("Integration to the existing world") {
+
+    slide("Platform integration") {
+      list {
+        text("Compiles to JVM")
+        list {
+          text("Seamless integration into Java lagacy code")
+          text("Utilises Java libraries")
+          text("Compiles to Android with very little footprint")
+          }
+        text("Compiles to JavaScript")
+        list {
+          text("JetBrains Chrome Extension")
+          }
+        text("Compiles to LLVM and native code")
+        }
+      }
+
+    slide("Package Managers and Libraries") {
+      text("Package managers include:")
+      list {
+        text("Gradle")
+        text("Maven")
+        text("Native IDEA")
+        }
+      text("Libraries for much more than...")
+      list {
+        text("Anko - Androd")
+        text("Kotlin-NoSQL - MongoDB")
+        text("HamKrest - Hamcrest matchers for Kotlin")
+        }
+      text("... and of course any existing Java library")
+      }
+
+
+    }
+
   section("Working with properties") {
 
     slide("Properties conceptually") {
@@ -40,6 +78,11 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         text("Accessors should not change state")
         text("Mutators should be re-entrant")
         }
+      text("A new perspective:")
+      list {
+        text("\\textbf{From}: A private field exposed with methods get end set")
+        text("\\textbf{To}: A public property backed up by a private field")
+        }
       }
 
     slide("Properties in Java") {
@@ -48,11 +91,6 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         |  private final int id;
         |  private String name;
         |
-        |  public Person(int id, String name) {
-        |    this.id = id;
-        |    setName(name);
-        |    }
-        |
         |  public int getId() { return id; }
         |
         |  public String getName() { return name; }
@@ -60,6 +98,11 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         |  public void setName(String value) {
         |    if (value == null) throw new RuntimeException();
         |    name = value;
+        |    }
+        |
+        |  public Person(int id, String name) {
+        |    this.id = id;
+        |    setName(name);
         |    }
         |  }
         """)
@@ -80,11 +123,6 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         |  private readonly int id;
         |  private string name;
         |
-        |  public Person(int id, string name) {
-        |    this.id = id;
-        |    Name = name;
-        |    }
-        |
         |  public int Id { get { return id; } }
         |
         |  public string Name {
@@ -93,6 +131,11 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         |      if (value == null) throw new Exception();
         |      name = value;
         |      }
+        |    }
+        |
+        |  public Person(int id, string name) {
+        |    this.id = id;
+        |    Name = name;
         |    }
         |  }
         """)
@@ -123,16 +166,16 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         |  private val _id: Int
         |  private var _name: String
         |
-        |  init {
-        |    _id = id
-        |    _name = name
-        |    }
-        |
         |  val id: Int get() = _id
         |
         |  var name: String
         |    get() = _name
         |    set(value) { _name = value }
+        |
+        |  init {
+        |    _id = id
+        |    _name = name
+        |    }
         |
         |  }
         """)
@@ -205,9 +248,13 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         """)
       text("Properties can be declared in the constructor")
       text("No need for ${-"\\{"} and ${-"\\}"}, when no definitions left in class body")
+      text("And of course no parantheses here either")
+      kotlin("""
+        |kurt.firstName = sonja.firstName
+        """)
       }
 
-     slide("Properties in Kotlin - VII") {
+     slide("Properties in Kotlin - Destructuring") {
       kotlin("""data class Person(val id: Int, var name: String)""")
       text("Add ${-"data"} and you can destructure the object:")
       kotlin("""
@@ -243,7 +290,7 @@ fun Show.pragmaticSection() = section("Pragmatism") {
         """)
       text("or more elegant")
       kotlin("""
-        |fun functional(a: Int, b: Int?) =
+        |fun foo(a: Int, b: Int?) =
         |  if (b == null) 0
         |  else a*b
         """)

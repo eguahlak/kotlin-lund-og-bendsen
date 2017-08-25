@@ -19,6 +19,7 @@ class CodeElement(val language: String, var code: String = "") : Element() {
 fun Slide.kotlin(code: String = "", init: CodeElement.() -> Unit = {}) = element(CodeElement("kotlin", code), init)
 fun Slide.java(code: String = "", init: CodeElement.() -> Unit = {}) = element(CodeElement("java", code), init)
 fun Slide.csharp(code: String = "", init: CodeElement.() -> Unit = {}) = element(CodeElement("cs", code), init)
+fun Slide.output(code: String = "", init: CodeElement.() -> Unit= {}) = element(CodeElement("kotlin", code), init)
 
 fun code(text: String) = "\\code{$text}"
 operator fun String.unaryMinus() = "\\code{$this}"

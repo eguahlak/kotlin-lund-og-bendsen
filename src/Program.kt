@@ -1,7 +1,6 @@
-import dk.kalhauge.slides.*
-import dk.kalhauge.slides.elements.*
-import section.functionsSection
-import section.pragmaticSection
+import dk.kalhauge.slides.show
+import dk.kalhauge.slides.slide
+import section.*
 import java.io.File
 
 fun main(args: Array<String>) {
@@ -16,40 +15,8 @@ fun main(args: Array<String>) {
 
     pragmaticSection()
     functionsSection()
+    specialSection()
 
-    section("Kotlin") {
-
-      slide("Programming Examples") {
-        java {
-          +"""
-          |class Person {
-          |  private String name;
-          |  }
-          """
-        }
-        kotlin {
-          +"""
-          |class Person(var name: String)
-          |"""
-        }
-      }
-
-      section("An underview") {
-
-        slide("Andet slide") {
-          title = "Second slide"
-          subtitle = "Lund og Bendsen"
-          text("Killroy was here")
-          list {
-            text("Erste")
-            text("Zwiete")
-            text("Dritte")
-            }
-          }
-
-        }
-
-      }
     }
   File("/Users/AKA/DatSoftLyngby/4sem2017fall-iot/slides/01-Introduction/Kotlin-Lund-Bendsen.tex").printWriter().use { out ->
     show.print(out)
